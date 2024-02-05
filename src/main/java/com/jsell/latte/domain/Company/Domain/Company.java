@@ -18,5 +18,4 @@ public class Company {
 
     private String name;
 
-    private List<User> employee;
 }

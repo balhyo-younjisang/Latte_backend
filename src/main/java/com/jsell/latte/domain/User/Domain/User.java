@@ -10,7 +10,6 @@ import org.springframework.util.Assert;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "user")
 public class User {
     @Id
     @Column(name = "user_id")
@@ -19,6 +18,9 @@ public class User {
 
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private String password;
 
     @Column(nullable = false)
     private String intro;
@@ -30,11 +32,13 @@ public class User {
     private Company company;
 
     @Builder
-    public User(String name, String intro) {
+    public User(String name, String password, String intro) {
         Assert.hasLength(name, "name must not be empty");
+        Assert.hasLength(password, "password must not be empty");
         Assert.hasLength(intro, "intro must not be empty");
 
         this.name = name;
+        this.password = password;
         this.intro = intro;
     }
 }

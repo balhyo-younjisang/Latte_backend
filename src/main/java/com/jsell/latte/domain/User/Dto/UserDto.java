@@ -1,11 +1,11 @@
 package com.jsell.latte.domain.User.Dto;
 
 import com.jsell.latte.domain.User.Domain.User;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Getter
+@Data
 @ToString
 @NoArgsConstructor
 public class UserDto {
@@ -17,10 +17,11 @@ public class UserDto {
 
     public class CreateUserReqDto extends UserReqDto {
         private String intro;
+        private String password;
 
         @Override
         public User toEntity() {
-            return User.builder().name(this.name).intro(this.intro).build();
+            return User.builder().name(super.name).intro(this.intro).password(this.password).build();
         }
     }
 }
