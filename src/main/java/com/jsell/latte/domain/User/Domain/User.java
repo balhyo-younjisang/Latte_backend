@@ -25,6 +25,9 @@ public class User {
     @Column(nullable = false)
     private String intro;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
 //    private List<Room> rooms;
 
     @ManyToOne
@@ -32,11 +35,13 @@ public class User {
     private Company company;
 
     @Builder
-    public User(String name, String password, String intro) {
+    public User(String email, String name, String password, String intro) {
+        Assert.hasLength(email, "email must not be empty");
         Assert.hasLength(name, "name must not be empty");
         Assert.hasLength(password, "password must not be empty");
         Assert.hasLength(intro, "intro must not be empty");
 
+        this.email = email;
         this.name = name;
         this.password = password;
         this.intro = intro;
