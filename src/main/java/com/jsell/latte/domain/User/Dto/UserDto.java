@@ -16,6 +16,13 @@ public class UserDto {
     }
 
     @Getter
+    public abstract class UserResDto {
+        protected String email;
+
+        public UserResDto(String email) {this.email = email;}
+    }
+
+    @Getter
     public class CreateUserReqDto extends UserReqDto {
         private String name;
         private String intro;
@@ -34,7 +41,7 @@ public class UserDto {
 
         @Override
         public User toEntity() {
-            return User.builder().name(this.name).intro(this.intro).password(this.password).build();
+            return User.builder().email(email).name(this.name).intro(this.intro).password(this.password).build();
         }
     }
 
@@ -49,7 +56,33 @@ public class UserDto {
 
         @Override
         public User toEntity() {
-            return null;
+            return User.builder().email(email).password(password).build();
+        }
+    }
+
+    /**
+     * @Todo 필요한 경우 UserReqDto 상속
+     */
+    @Getter
+    public class UpdateUserReqDto {
+        private String intro;
+        private String name;
+
+        public UpdateUserReqDto(String name, String intro) {
+            this.name = name;
+            this.intro = intro;
+        }
+    }
+
+    @Getter
+    public class UpdateUserResDto extends UserResDto {
+        private String name;
+        private String intro;
+
+        public UpdateUserResDto(String email, String name, String intro) {
+            super(email);
+            this.intro = intro;
+            this.name = name;
         }
     }
 }

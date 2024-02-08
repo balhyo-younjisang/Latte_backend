@@ -3,12 +3,13 @@ package com.jsell.latte.domain.User.Domain;
 import com.jsell.latte.domain.Company.Domain.Company;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
 @Entity
-@Getter
+@Data
 @NoArgsConstructor
 public class User {
     @Id

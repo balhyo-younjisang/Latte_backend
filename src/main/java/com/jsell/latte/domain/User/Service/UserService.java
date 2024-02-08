@@ -17,7 +17,9 @@ public interface UserService {
      * 로그인을 위한 로직을 수행하는 메서드
      * @param loginUserReqDto UserReqDto를 상속받아 email, password를 요청으로 받음
      * @return 로그인 성공 시 토큰을 반환
-     * @throws Exception
+     * @throws Exception UserNotFoundException
      */
-    Optional<String> loginUser(UserDto.LoginUserReqDto loginUserReqDto) throws Exception;
+    String loginUser(UserDto.LoginUserReqDto loginUserReqDto) throws Exception;
+
+    UserDto.UpdateUserResDto updateUser(UserDto.UpdateUserReqDto updateUserReqDto) throws Exception;
 }
