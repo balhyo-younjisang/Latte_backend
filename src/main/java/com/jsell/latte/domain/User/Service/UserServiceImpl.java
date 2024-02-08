@@ -3,6 +3,7 @@ package com.jsell.latte.domain.User.Service;
 import com.jsell.latte.domain.User.Domain.User;
 import com.jsell.latte.domain.User.Dto.UserDto;
 import com.jsell.latte.domain.User.Repository.UserRepository;
+import com.jsell.latte.global.Common.Dto.Token;
 import com.jsell.latte.global.Config.JwtProvider;
 import com.jsell.latte.global.Exception.PasswordNotMatchException;
 import com.jsell.latte.global.Exception.UserNotFoundException;
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String loginUser(UserDto.LoginUserReqDto loginUserReqDto) throws Exception {
+    public Token loginUser(UserDto.LoginUserReqDto loginUserReqDto) throws Exception {
         Assert.hasLength(loginUserReqDto.getEmail(), "email must not be empty");
         Assert.hasLength(loginUserReqDto.getPassword(), "password must not be empty");
 
@@ -42,7 +43,7 @@ public class UserServiceImpl implements UserService {
             throw new PasswordNotMatchException("password do not match");
         }
 
-        String token = jwtProvider.generateJwtToken(existsUser);
+        Token token = jwtProvider.generateJwtToken(existsUser);
         return token;
     }
 
@@ -51,9 +52,7 @@ public class UserServiceImpl implements UserService {
         Assert.hasLength(updateUserReqDto.getIntro(), "intro must not be empty");
         Assert.hasLength(updateUserReqDto.getName(), "name must not be empty");
 
-        String email = jwtConfig.getEmailFromToken(token);
-
-        User updateUser = this.userRepository.findByEmail(email).orElseThrow();
+        User updateUser = this.userRepository.findByEmail(updateUserReqDto.getEmail()).orElseThrow();
 
         updateUser.setIntro(updateUserReqDto.getIntro());
         updateUser.setName(updateUserReqDto.getName());

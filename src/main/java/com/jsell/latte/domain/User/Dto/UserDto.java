@@ -64,13 +64,19 @@ public class UserDto {
      * @Todo 필요한 경우 UserReqDto 상속
      */
     @Getter
-    public class UpdateUserReqDto {
+    public class UpdateUserReqDto extends UserReqDto {
         private String intro;
         private String name;
 
-        public UpdateUserReqDto(String name, String intro) {
+        public UpdateUserReqDto(String email, String name, String intro) {
+            super(email);
             this.name = name;
             this.intro = intro;
+        }
+
+        @Override
+        public User toEntity() {
+            return null;
         }
     }
 

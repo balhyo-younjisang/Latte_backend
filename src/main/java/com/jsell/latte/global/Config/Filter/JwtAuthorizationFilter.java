@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.SignatureException;
 import java.util.HashMap;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class JwtAuthorizationFilter extends GenericFilterBean {
@@ -43,7 +44,8 @@ public class JwtAuthorizationFilter extends GenericFilterBean {
                 Long userId = jwtProvider.getIdFromToken(token);
 
                 // ID가 유효하지 않을 경우 InvalidTokenException 을 던짐
-                User existsUser = userRepository.findById(userId).orElseThrow();
+                Optional<User> existsUser = userRepository.findById(userId);
+                if(existsUser.isEmpty()) throw new InvalidTokenException("유효하지 않은 토큰입니다");
                 chain.doFilter(request, response);
             } else {
                 // 토큰이 유효하지 않는 경우
