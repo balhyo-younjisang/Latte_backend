@@ -2,6 +2,7 @@ package com.jsell.latte.domain.User.Controller;
 
 import com.jsell.latte.domain.User.Dto.UserDto;
 import com.jsell.latte.global.Common.Dto.Response;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +26,7 @@ public interface UserController {
      * @throws Exception UserNotFoundException
      */
     @PostMapping("/login")
-    public Response<String> loginUser(@Valid @RequestBody UserDto.LoginUserReqDto loginUserReqDto) throws  Exception;
+    public Response<Boolean> loginUser(HttpServletRequest httpServletRequest, @Valid @RequestBody UserDto.LoginUserReqDto loginUserReqDto) throws  Exception;
 
     /**
      * /api/v1/user/update/introduce 경로로 Patch 요청 시 사용자의 intro를 수정 후 사용자 데이터 반환
@@ -34,6 +35,11 @@ public interface UserController {
      * @throws Exception
      */
     @PatchMapping("/update/introduce")
-    public Response<UserDto.UpdateUserResDto> updateUser(@Valid @RequestBody UserDto.UpdateUserReqDto updateUserIntroReqDto) throws Exception;
+    public Response<UserDto.UpdateUserResDto> updateUser(@SessionAttribute(name = "userId", required = true) Long userId, @Valid @RequestBody UserDto.UpdateUserReqDto updateUserIntroReqDto) throws Exception;
 
+    /**
+     * /api/v1/user/logout 경로로 Delete 요청 시 세션을 삭제
+     */
+    @DeleteMapping("/logout")
+    public Response<Void> logout(HttpServletRequest request);
 }

@@ -1,9 +1,7 @@
 package com.jsell.latte.domain.User.Service;
 
+import com.jsell.latte.domain.User.Domain.User;
 import com.jsell.latte.domain.User.Dto.UserDto;
-import com.jsell.latte.global.Common.Dto.Token;
-
-import java.util.Optional;
 
 public interface UserService {
     /**
@@ -20,7 +18,7 @@ public interface UserService {
      * @return 로그인 성공 시 토큰을 반환
      * @throws Exception UserNotFoundException
      */
-    Token loginUser(UserDto.LoginUserReqDto loginUserReqDto) throws Exception;
+    User loginUser(UserDto.LoginUserReqDto loginUserReqDto) throws Exception;
 
-    UserDto.UpdateUserResDto updateUser(UserDto.UpdateUserReqDto updateUserReqDto) throws Exception;
+    User updateUser(Long userId, UserDto.UpdateUserReqDto updateUserReqDto) throws Exception;
 }

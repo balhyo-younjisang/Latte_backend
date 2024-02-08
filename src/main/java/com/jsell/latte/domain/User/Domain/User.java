@@ -35,6 +35,10 @@ public class User {
     @JoinColumn(name = "company_id")
     private Company company;
 
+    public void clearPassword() {
+        this.password = null;
+    }
+
     @Builder
     public User(String email, String name, String password, String intro) {
         Assert.hasLength(email, "email must not be empty");
@@ -47,4 +51,5 @@ public class User {
         this.password = password;
         this.intro = intro;
     }
+
 }

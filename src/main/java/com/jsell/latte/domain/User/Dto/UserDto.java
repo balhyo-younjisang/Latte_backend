@@ -68,6 +68,7 @@ public class UserDto {
         private String intro;
         private String name;
 
+
         public UpdateUserReqDto(String email, String name, String intro) {
             super(email);
             this.name = name;
