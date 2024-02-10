@@ -21,7 +21,7 @@ public class UserControllerImpl implements UserController {
     private final UserServiceImpl userServiceImpl;
 
     @Override
-    public Response<Boolean> joinUser(@Valid @RequestBody UserDto.CreateUserReqDto createUserReqDto) throws Exception {
+    public Response<Boolean> joinUser(@Valid UserDto.CreateUserReqDto createUserReqDto) throws Exception {
         try {
             return Response.of(201, "Join success", this.userServiceImpl.createUser(createUserReqDto));
         } catch(IllegalArgumentException e) {
@@ -33,7 +33,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public Response<Boolean> loginUser(HttpServletRequest httpServletRequest, @Valid @RequestBody UserDto.LoginUserReqDto loginUserReqDto) throws Exception {
+    public Response<Boolean> loginUser(HttpServletRequest httpServletRequest, @Valid UserDto.LoginUserReqDto loginUserReqDto) throws Exception {
         try {
             User user = this.userServiceImpl.loginUser(loginUserReqDto);
 
@@ -56,7 +56,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public Response<UserDto.UpdateUserResDto> updateUser(@SessionAttribute(name = "userId", required = true) Long userId, @Valid @RequestBody UserDto.UpdateUserReqDto updateUserReqDto) throws Exception {
+    public Response<UserDto.UpdateUserResDto> updateUser(@SessionAttribute(name = "userId", required = true) Long userId, @Valid UserDto.UpdateUserReqDto updateUserReqDto) throws Exception {
         try {
             User user = this.userServiceImpl.updateUser(userId, updateUserReqDto);
             UserDto.UpdateUserResDto updateUserResDto = new UserDto().new UpdateUserResDto(user.getEmail(), user.getName(), user.getIntro());
